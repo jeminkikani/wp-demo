@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Multi-Session</title>
+</head>
+<body>
+    <h1>WhatsApp Multi-Session</h1>
+
+    <h2>Create New Session</h2>
+    <form action="/new-session" method="POST">
+        <label>Phone Number:</label>
+        <input type="text" name="phoneNumber" required>
+        <button type="submit">Start Session</button>
+    </form>
+
+    <h2>Active Sessions</h2>
+    <ul>
+        <% sessions.forEach(sessionId => { %>
+            <li>
+                <strong>Session:</strong> <%= sessionId %>
+                | <a href="/qr/<%= sessionId %>" target="_blank">View QR Code</a>
+                | <form action="/send" method="POST" style="display:inline;">
+                    <input type="hidden" name="sessionId" value="<%= sessionId %>">
+                    <input type="text" name="number" placeholder="Recipient Number" required>
+                    <input type="text" name="message" placeholder="Message" required>
+                    <button type="submit">Send Message</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
